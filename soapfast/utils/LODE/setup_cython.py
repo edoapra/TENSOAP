@@ -15,5 +15,5 @@ ext_modules = [
 
 setup(
     name='Cython routines for LODE power spectrum evaluation',
-    ext_modules=cythonize(ext_modules),
+    ext_modules=cythonize(ext_modules, language_level = "2"),
 )

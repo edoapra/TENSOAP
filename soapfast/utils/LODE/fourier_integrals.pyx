@@ -35,6 +35,9 @@ cdef void _fintegrals(long nG,
     # Py_ssize_t is the correct C type for Python array indexes
     cdef Py_ssize_t iG, n, l, lm, im, n1, n2
     cdef double fourierpot, G2, normfact, th, ph 
+    cdef double complex myexp = 1j
+    myexp = myexp*myexp
+    myexp = myexp**2
 
     for n in xrange(nmax):
         # normalization factor for primitive radial functions
@@ -57,13 +60,14 @@ cdef void _fintegrals(long nG,
         ph = np.arctan2(Gvec[iG,1],Gvec[iG,0])
         lm = 0
         for l in xrange(lmax+1):
+            myexp = 1j**l
             for n1 in xrange(nmax):
                 for n2 in xrange(nmax):
                     # orthogonalize radial integrals with Loewdin
                     orthoradint[iG,l,n1] = orthoradint[iG,l,n1] + orthomatrix[n1,n2]*radint[l,n2]
             for im in xrange(2*l+1):
                 # compute spherical harmonics at G-vector directions
-                harmonics[iG,lm] = np.conj(sc.sph_harm(im-l,l,ph,th)) * 1.0j**l
+                harmonics[iG,lm] = np.conj(sc.sph_harm(im-l,l,ph,th)) * myexp
                 lm += 1
 
 

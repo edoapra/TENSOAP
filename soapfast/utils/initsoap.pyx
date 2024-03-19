@@ -53,8 +53,9 @@ cdef void _initsoapmolecule(long nspecies,
     # Py_ssize_t is the correct C type for Python array indexes
     cdef Py_ssize_t icentype,centype,icen,cen,ispe,ineigh,neigh,lval,mval,im,n 
     cdef double rx,ry,rz,ph,th,r2,rdist
+    cdef int spe
  
-    iat = 0
+    cdef int iat = 0
     ncentype = len(centers)
     # loop over species to center on
     for icentype in xrange(ncentype):
@@ -127,7 +128,7 @@ cdef void _initsoapperiodic(long nspecies,
     cdef double rx,ry,rz,rcx,rcy,rcz,sx,sy,sz,ph,th,r2,rdist,rrx,rry,rrz
 
     nnmax = length.shape[2]
-    iat = 0
+    cdef int spe, iat = 0
     ncentype = len(centers)
     # loop over species to center on
     for icentype in xrange(ncentype):
